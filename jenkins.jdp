@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages {
+        stage('pull'){
+            steps {
+                git branch: 'main', url: 'https://github.com/mayurmwagh/cbz-backend.git'
+            }
+        }
+        stage('build'){
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('deploy'){
+            steps {
+                sh '''
+                    docker build . -t mayurmwagh/oncdec9-backend:latest
+                    docker push mayurmwagh/oncdec9-backend:latest
+                    docker rmi mayurmwagh/oncdec9-backend:latest
+                    kubectl apply -f ./yaml/
+                '''
+            }
+        }
+    }
+}
