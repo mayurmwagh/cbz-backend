@@ -14,9 +14,9 @@ pipeline {
         stage('deploy'){
             steps {
                 sh '''
-                    docker build . -t mayurmwagh/oncdec9-backend:latest
-                    docker push mayurmwagh/oncdec9-backend:latest
-                    docker rmi mayurmwagh/oncdec9-backend:latest
+                    docker build . -t mayurwagh/oncdec9-backend:latest
+                    docker push mayurwagh/oncdec9-backend:latest
+                    docker rmi mayurwagh/oncdec9-backend:latest
                     kubectl apply -f ./yaml/
                 '''
             }
